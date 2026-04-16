@@ -1,0 +1,47 @@
+/* stylelint-disable @stylistic/max-line-length */
+
+.wp-block-group {
+
+    &.has-responsive-grid-columns {
+
+        &--desktop {
+            grid-template-columns: var(--responsive-grid-template-columns--desktop);
+        }
+
+        @media screen and (max-width: 1024px) {
+
+            &--tablet {
+                grid-template-columns: var(--responsive-grid-template-columns--tablet);
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+
+            &--mobile {
+                grid-template-columns: var(--responsive-grid-template-columns--mobile);
+            }
+        }
+    }
+
+    &.has-responsive-grid-rows {
+
+        &--desktop {
+            grid-template-rows: var(--responsive-grid-template-rows--desktop);
+        }
+
+        @media screen and (max-width: 1024px) {
+
+            &--tablet {
+                grid-template-rows: var(--responsive-grid-template-rows--tablet);
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+
+            &--mobile {
+                grid-template-rows: var(--responsive-grid-template-rows--mobile);
+            }
+        }
+    }
+}
+/* stylelint-enable @stylistic/max-line-length */
