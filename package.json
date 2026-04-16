@@ -36,5 +36,11 @@
 		"stylelint-scss": "^6.14.0",
 		"typescript": "^5.9.3",
 		"webpack-remove-empty-scripts": "^1.1.1"
-	}
+	},
+		"files": [ 
+		"responsive-grid-extension.php",
+		"build",
+		"vendor",
+		"Plugin.php"
+	]
 }
