@@ -1,7 +1,7 @@
 {
-	"name": "grid-extensions",
-	"version": "0.1.0",
-	"description": "Grid extensions built custom for Educated Mortgage",
+	"name": "responsive-grid-extension",
+	"version": "0.1.1",
+	"description": "Extension to the core/grid wordpress block to use responsive grid attributes.",
 	"author": "Bob Moore",
 	"license": "GPL-2.0-or-later",
 	"private": true,
@@ -37,10 +37,12 @@
 		"typescript": "^5.9.3",
 		"webpack-remove-empty-scripts": "^1.1.1"
 	},
-		"files": [ 
+	"files": [ 
 		"responsive-grid-extension.php",
 		"build",
 		"vendor",
-		"Plugin.php"
+		"Plugin.php",
+		"readme.txt",
+		"inc"
 	]
 }

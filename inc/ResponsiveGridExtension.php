@@ -11,7 +11,7 @@
  * @since      1.0.0
  */
 
-namespace Bmd\ResponsiveGridExtension;
+namespace Bmd;
 
 /**
  * Coordinates runtime behavior for the Responsive Grid Extension package.
@@ -25,8 +25,14 @@ namespace Bmd\ResponsiveGridExtension;
  * - Subclasses can override buildPath() and buildUrl() when integrating in custom directory layouts.
  * - Subclasses can override enqueueEditorScript() and enqueueFrontendStyle() to customize handle names or loading strategy.
  * - Subclasses can override processGridBlock() to change class/CSS variable naming conventions.
+ *
+ * Composer integration example:
+ * - $plugin = new ResponsiveGridExtension();
+ * - add_action( 'enqueue_block_editor_assets', [ $plugin, 'enqueueEditorScript' ] );
+ * - add_action( 'wp_enqueue_scripts', [ $plugin, 'enqueueFrontendStyle' ] );
+ * - add_filter( 'render_block_core/group', [ $plugin, 'processGridBlock' ], 10, 2 );
  */
-class Plugin
+class ResponsiveGridExtension
 {
     /**
     * Enqueue editor assets for the block extension.
@@ -121,7 +127,7 @@ class Plugin
     protected function buildPath( string $relative_path ): string
     {
         return wp_normalize_path(
-            __DIR__ . '/build/' . ltrim( $relative_path, '/' )
+            dirname( __DIR__ ) . '/build/' . ltrim( $relative_path, '/' )
         );
     }
 

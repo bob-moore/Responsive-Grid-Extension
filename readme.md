@@ -24,17 +24,34 @@ This package is built for WordPress projects that need per-breakpoint grid templ
 
 ### As a WordPress plugin
 
-1. Copy this package into your WordPress `wp-content/plugins/` directory.
-2. Install dependencies with `npm install` if you need to rebuild assets.
-3. Build assets with `npm run build`.
-4. Activate **Responsive Grid Extension** in the WordPress admin.
+1. Download the latest installable ZIP from the [GitHub Releases page](https://github.com/bob-moore/Responsive-Grid-Extension/releases).
+2. In WordPress admin, go to **Plugins > Add New Plugin > Upload Plugin**.
+3. Upload the ZIP and activate **Responsive Grid Extension**.
 
 ### As a Composer dependency
 
-1. Require the package in the consuming project.
-2. Ensure the package is installed inside a web-accessible WordPress path.
-3. Make sure `vendor/autoload.php` is available for the package bootstrap file.
-4. Load `responsive-grid-extensions.php` from the consuming plugin or theme.
+1. Require the package from your consuming plugin or theme:
+
+```bash
+composer require bmd/responsive-grid-extension
+```
+
+2. Instantiate the plugin class and register its hooks in your bootstrap code:
+
+```php
+<?php
+
+use Bmd\ResponsiveGridExtension;
+
+$plugin = new ResponsiveGridExtension();
+
+add_action( 'enqueue_block_editor_assets', [ $plugin, 'enqueueEditorScript' ] );
+add_action( 'wp_enqueue_scripts', [ $plugin, 'enqueueFrontendStyle' ] );
+add_filter( 'render_block_core/group', [ $plugin, 'processGridBlock' ], 10, 2 );
+```
+
+3. Ensure Composer autoloading is active in the consuming plugin or theme.
+4. Keep the package in a WordPress-accessible location so built assets can be loaded.
 
 ## Usage
 
@@ -71,6 +88,12 @@ npm run build
 ```
 
 ## Changelog
+
+### 0.1.1
+
+- Moved main class into `inc/` directory for Composer PSR-4 autoloading under `Bmd\`.
+- Public class is now `Bmd\ResponsiveGridExtension` (previously `Bmd\ResponsiveGridExtension\Plugin`).
+- Fixed asset path resolution after directory restructure.
 
 ### 0.1.0
 

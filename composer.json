@@ -2,7 +2,7 @@
     "name": "bmd/responsive-grid-extension",
     "description": "Extension for core/grid wordpress block to use responsive grid attributes.",
     "type": "library",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "license": "GPL-2.0-or-later",
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Bmd\\ResponsiveGridExtension\\": "./"
+            "Bmd\\": "./inc"
         }
     },
     "require-dev": {
