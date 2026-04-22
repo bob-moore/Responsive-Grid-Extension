@@ -5,7 +5,7 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add responsive and custom grid template columns
- * Version:           0.1.1
+ * Version:           0.1.2
  * Requires at least: 6.7
  * Tested up to:      6.7
  * Requires PHP:      8.2
@@ -33,6 +33,4 @@ require_once __DIR__ . '/vendor/autoload.php';
  */
 $plugin = new ResponsiveGridExtension();
 
-add_action( 'enqueue_block_editor_assets', [ $plugin, 'enqueueEditorScript' ] );
-add_action( 'wp_enqueue_scripts', [ $plugin, 'enqueueFrontendStyle' ] );
-add_filter( 'render_block_core/group', [ $plugin, 'processGridBlock' ], 10, 2 );
+$plugin->mount();
