@@ -5,7 +5,7 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add responsive and custom grid template columns
- * Version:           0.1.2
+ * Version:           0.1.3
  * Requires at least: 6.7
  * Tested up to:      6.7
  * Requires PHP:      8.2
@@ -24,13 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-/**
- * All the functionality is contained in the plugin class, with actions
- * and filters added at the bottom of this file to keep things organized.
- * 
- * This way, the plugin class can be imported via composer, and included in
- * other plugins if needed, without also importing the actions and filters.
- */
-$plugin = new ResponsiveGridExtension();
+function create_responsive_grid_extension_plugin(): void
+{
+	$plugin = new ResponsiveGridExtension(
+		plugin_dir_url( __FILE__ ),
+		plugin_dir_path( __FILE__ )
+	);
 
-$plugin->mount();
+	$plugin->mount();
+}
+create_responsive_grid_extension_plugin();

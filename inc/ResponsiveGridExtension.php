@@ -27,15 +27,66 @@ namespace Bmd;
  * - Subclasses can override processGridBlock() to change class/CSS variable naming conventions.
  *
  * Composer integration example:
- * - $plugin = new ResponsiveGridExtension();
- * - add_action( 'enqueue_block_editor_assets', [ $plugin, 'enqueueEditorScript' ] );
- * - add_action( 'wp_enqueue_scripts', [ $plugin, 'enqueueFrontendStyle' ] );
- * - add_filter( 'render_block_core/group', [ $plugin, 'processGridBlock' ], 10, 2 );
+ * - $plugin = new ResponsiveGridExtension( plugin_dir_url( __FILE__ ), plugin_dir_path( __FILE__ ) );
+ * - $plugin->mount();
  */
-class ResponsiveGridExtension
+class ResponsiveGridExtension implements BasicPlugin
 {
 	/**
-	 * Register all WordPress hooks for navigation block enhancements.
+	* URL of this plugin/package.
+	*
+	* Used to enqueue block editor assets.
+	*
+	* @var string
+	*/
+	protected string $url;
+	/**
+	* Path of the plugin/package.
+	*
+	* Used to locate block editor assets.
+	*
+	* @var string
+	*/
+	protected string $path;
+	/**
+	* Initialize the plugin.
+	*
+	* Sets the URL and path for this package.
+	*
+	* @param string $url  URL to the plugin directory.
+	* @param string $path Absolute path to the plugin directory.
+	*/
+	public function __construct(
+		string $url = '',
+		string $path = ''
+	) {
+		$this->setUrl( ! empty( $url ) ? esc_url_raw( $url ) : plugin_dir_url( __DIR__ ) );
+		$this->setPath( ! empty( $path ) ? esc_html( $path ) : plugin_dir_path( __DIR__ ) );
+	}
+	/**
+	* Setter for the URL property.
+	*
+	* @param string $url string URL to set.
+	*
+	* @return void
+	*/
+	public function setUrl( string $url ): void
+	{
+		$this->url = trailingslashit( $url );
+	}
+	/**
+	* Setter for the path property.
+	*
+	* @param string $path string path to set.
+	*
+	* @return void
+	*/
+	public function setPath( string $path ): void
+	{
+		$this->path = trailingslashit( $path );
+	}
+	/**
+	 * Register all WordPress hooks for the responsive grid extension.
 	 *
 	 * @return void
 	 */
@@ -65,9 +116,9 @@ class ResponsiveGridExtension
 			return;
 		}
 
-		$assets = $this->getScriptAssets();
+		$assets  = $this->getScriptAssets();
 		$version = $assets['version'] ?? (string) filemtime( $script_file );
-		$src = $this->buildUrl( 'index.js' );
+		$src     = $this->buildUrl( 'index.js' );
 
 		if ( empty( $src ) ) {
 			return;
@@ -98,7 +149,7 @@ class ResponsiveGridExtension
 	/**
 	 * Enqueue a stylesheet from the build directory if it exists.
 	 *
-	 * @param string $handle Style handle.
+	 * @param string $handle        Style handle.
 	 * @param string $relative_path Relative file path inside build.
 	 *
 	 * @return void
@@ -114,7 +165,7 @@ class ResponsiveGridExtension
 		$assets = $this->getScriptAssets();
 		// Keep style versions in sync with script build versions when available.
 		$version = $assets['version'] ?? (string) filemtime( $style_file );
-		$src = $this->buildUrl( $relative_path );
+		$src     = $this->buildUrl( $relative_path );
 
 		if ( empty( $src ) ) {
 			return;
@@ -137,16 +188,17 @@ class ResponsiveGridExtension
 	 */
 	protected function buildPath( string $relative_path ): string
 	{
-		return wp_normalize_path(
-			dirname( __DIR__ ) . '/build/' . ltrim( $relative_path, '/' )
-		);
+		$path = apply_filters( 'responsive_grid_extension_plugin_path', $this->path );
+		
+		if ( '' === $path ) {
+			return '';
+		}
+
+		return wp_normalize_path( $path . 'build/' . ltrim( $relative_path, '/' ) );
 	}
 
 	/**
 	 * Resolve a build file path into a public URL.
-	 *
-	 * This supports packages loaded from plugins, themes, or vendor directories
-	 * as long as the file is under ABSPATH.
 	 *
 	 * @param string $relative_path Relative file path inside build.
 	 *
@@ -154,38 +206,13 @@ class ResponsiveGridExtension
 	 */
 	protected function buildUrl( string $relative_path ): string
 	{
-		$absolute_path = $this->buildPath( $relative_path );
-		$resolved_path = realpath( $absolute_path );
-
-		if ( false !== $resolved_path ) {
-			$absolute_path = wp_normalize_path( $resolved_path );
+		$url = apply_filters( 'responsive_grid_extension_plugin_url', $this->url );
+		
+		if ( '' === $url ) {
+			return '';
 		}
 
-		$content_dir = wp_normalize_path( WP_CONTENT_DIR );
-
-		// Preferred path: anything in wp-content maps cleanly via content_url().
-		if ( str_starts_with( $absolute_path, $content_dir ) ) {
-			$relative = ltrim(
-				substr( $absolute_path, strlen( $content_dir ) ),
-				'/'
-			);
-
-			return content_url( $relative );
-		}
-
-		$root_dir = wp_normalize_path( ABSPATH );
-
-		// Fallback path: anything under ABSPATH can still resolve with site_url().
-		if ( str_starts_with( $absolute_path, $root_dir ) ) {
-			$relative = ltrim(
-				substr( $absolute_path, strlen( $root_dir ) ),
-				'/'
-			);
-
-			return site_url( $relative );
-		}
-
-		return '';
+		return $url . 'build/' . ltrim( $relative_path, '/' );
 	}
 
 	/**
@@ -215,17 +242,17 @@ class ResponsiveGridExtension
 			}
 
 			$dependencies = $asset['dependencies'] ?? [];
-			$version = $asset['version'] ?? null;
+			$version      = $asset['version'] ?? null;
 
 			return [
 				'dependencies' => is_array( $dependencies ) ? $dependencies : [],
-				'version' => is_string( $version ) ? $version : null,
+				'version'      => is_string( $version ) ? $version : null,
 			];
 		}
 
 		return [
 			'dependencies' => [],
-			'version' => null,
+			'version'      => null,
 		];
 	}
 
@@ -240,14 +267,13 @@ class ResponsiveGridExtension
 	 * - --responsive-grid-template-columns--{breakpoint}
 	 * - --responsive-grid-template-rows--{breakpoint}
 	 *
-	 * @param string               $block_content : html output of the block.
-	 * @param array<string, mixed> $block : parsed block.
+	 * @param string               $block_content HTML output of the block.
+	 * @param array<string, mixed> $block         Parsed block.
 	 *
 	 * @return string
 	 */
 	public function processGridBlock( string $block_content, array $block ): string
 	{
-
 		// Only process Group blocks using the Grid layout mode.
 		if ( 'grid' !== ( $block['attrs']['layout']['type'] ?? false ) ) {
 			return $block_content;
@@ -278,15 +304,11 @@ class ResponsiveGridExtension
 			)
 		);
 
-		/**
-		 * Do not bother continuing to process if no responsive attributes
-		 * are present
-		 */
 		if ( empty( $columns ) && empty( $rows ) ) {
 			return $block_content;
 		}
 
-		$styles     = [];
+		$styles      = [];
 		$class_names = [];
 		/**
 		* Build custom column classes and styles.
@@ -330,7 +352,7 @@ class ResponsiveGridExtension
 		$processor = new \WP_HTML_Tag_Processor( $block_content );
 
 		if ( true === $processor->next_tag( [ 'class_name' => 'wp-block-group' ] ) ) {
-			$inline_styles = $processor->get_attribute( 'style' ) ?? '';
+			$inline_styles    = $processor->get_attribute( 'style' ) ?? '';
 			$existing_classes = $processor->get_attribute( 'class' ) ?? '';
 
 			$inline_styles .= str_ends_with( $inline_styles, ';' ) ? '' : ';';

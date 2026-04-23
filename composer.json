@@ -2,7 +2,6 @@
     "name": "bmd/responsive-grid-extension",
     "description": "Extension for core/grid wordpress block to use responsive grid attributes.",
     "type": "library",
-    "version": "0.1.2",
     "author": "Bob Moore <bob@bobmoore.dev>",
     "homepage": "https://github.com/bob-moore/Responsive-Grid-Extension",
     "license": "GPL-2.0-or-later",

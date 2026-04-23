@@ -3,7 +3,7 @@ Contributors: Bob Moore
 Tags: grid, group block, layout, responsive, blocks
 Requires at least: 6.7
 Tested up to: 6.7
-Stable tag: 0.1.1
+Stable tag: 0.1.3
 Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -47,15 +47,24 @@ The responsive controls are intended for Group blocks using the `grid` layout ty
 Yes.
 
 1. Require `bmd/responsive-grid-extension` in your plugin or theme.
-2. Instantiate `Bmd\ResponsiveGridExtension`.
-3. Register the following hooks:
-* `add_action( 'enqueue_block_editor_assets', [ $plugin, 'enqueueEditorScript' ] );`
-* `add_action( 'wp_enqueue_scripts', [ $plugin, 'enqueueFrontendStyle' ] );`
-* `add_filter( 'render_block_core/group', [ $plugin, 'processGridBlock' ], 10, 2 );`
+2. Instantiate `Bmd\ResponsiveGridExtension`, passing your plugin's URL and path.
+3. Call `$plugin->mount()` to register all hooks.
 
 Make sure Composer autoloading is active and the package is installed in a web-accessible WordPress path.
 
 == Changelog ==
+
+= 0.1.3 =
+
+* Introduced `BasicPlugin` interface defining the `mount()`, `setUrl()`, and `setPath()` contract.
+* `ResponsiveGridExtension` now implements `BasicPlugin`.
+* Constructor accepts optional `$url` and `$path` parameters for flexible asset resolution when used as a Composer dependency.
+* Plugin bootstrap is now wrapped in a named function.
+
+= 0.1.2 =
+
+* Added `mount()` method to `ResponsiveGridExtension` that registers all WordPress hooks in one call.
+* Simplified plugin bootstrap.
 
 = 0.1.1 =
 
@@ -70,10 +79,10 @@ Make sure Composer autoloading is active and the package is installed in a web-a
 
 == Upgrade Notice ==
 
+= 0.1.3 =
+
+Constructor now accepts `$url` and `$path` parameters. Composer integrations should pass `plugin_dir_url( __FILE__ )` and `plugin_dir_path( __FILE__ )` on instantiation.
+
 = 0.1.1 =
 
 Namespace updated to `Bmd\ResponsiveGridExtension`. Update any Composer integrations that previously referenced `Bmd\ResponsiveGridExtension\Plugin`.
-
-= 0.1.0 =
-
-Initial release.
