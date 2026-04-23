@@ -3,7 +3,7 @@ Contributors: Bob Moore
 Tags: grid, group block, layout, responsive, blocks
 Requires at least: 6.7
 Tested up to: 6.7
-Stable tag: 0.1.3
+Stable tag: 0.1.4
 Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -54,6 +54,11 @@ Make sure Composer autoloading is active and the package is installed in a web-a
 
 == Changelog ==
 
+= 0.1.4 =
+
+* Added scoped GitHub updater bootstrap in `plugin.php` using `bmd/github-wp-updater` from `vendor/scoped`.
+* Added release and instruction baselines under `.github/` for scoped updater and production packaging workflows.
+
 = 0.1.3 =
 
 * Introduced `BasicPlugin` interface defining the `mount()`, `setUrl()`, and `setPath()` contract.
@@ -78,6 +83,10 @@ Make sure Composer autoloading is active and the package is installed in a web-a
 * Added responsive Group block grid column and row controls.
 
 == Upgrade Notice ==
+
+= 0.1.4 =
+
+GitHub updater bootstrap was added. Ensure `vendor/scoped` is present in production installs so updater classes autoload correctly.
 
 = 0.1.3 =
 

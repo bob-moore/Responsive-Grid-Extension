@@ -15,7 +15,8 @@
         },
         "allow-plugins": {
             "composer/installers": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "wpify/scoper": true
         }
     },
     "autoload": {
@@ -30,7 +31,9 @@
         "wp-coding-standards/wpcs": "^3.0",
         "phpstan/phpstan": "^1.10",
         "szepeviktor/phpstan-wordpress": "^1.3",
-        "phpcsstandards/phpcsutils": "^1.0"
+        "phpcsstandards/phpcsutils": "^1.0",
+        "wpify/scoper": "^3.2",
+        "10up/wp_mock": "*"
     },
     "scripts": {
         "phpstan": "./vendor/bin/phpstan analyze -c ./phpstan.neon --memory-limit=2048M",
@@ -40,5 +43,18 @@
         "phpsniff:PSR12": "./vendor/bin/phpcs ./inc -v --standard='PSR12'",
         "phpsniff:PSR2": "./vendor/bin/phpcs ./inc -v --standard='PSR2'",
         "phpsniff:WP": "./vendor/bin/phpcs ./inc -v --standard='WordPress'"
+    },
+    "extra": {
+        "wpify-scoper": {
+            "prefix": "Bmd\\ResponsiveGridExtension",
+            "slug": "bmd_responsive_grid_extension",
+            "folder": "./vendor/scoped",
+            "globals": [
+                "wordpress"
+            ],
+            "composerjson": "composer-deps.json",
+            "composerlock": "composer-deps.lock",
+            "autorun": true
+        }
     }
 }

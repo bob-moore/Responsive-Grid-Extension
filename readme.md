@@ -90,6 +90,11 @@ npm run build
 
 ## Changelog
 
+### 0.1.4
+
+- Added scoped GitHub updater bootstrap in `plugin.php` using `bmd/github-wp-updater` from `vendor/scoped`.
+- Added Copilot instruction baselines under `.github/` for scoped updater install and production release packaging workflows.
+
 ### 0.1.3
 
 - Introduced `BasicPlugin` interface (`Bmd\BasicPlugin`) defining the `mount()`, `setUrl()`, and `setPath()` contract.

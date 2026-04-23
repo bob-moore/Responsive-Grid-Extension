@@ -5,7 +5,7 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add responsive and custom grid template columns
- * Version:           0.1.3
+ * Version:           0.1.4
  * Requires at least: 6.7
  * Tested up to:      6.7
  * Requires PHP:      8.2
@@ -17,12 +17,14 @@
  */
 
 use Bmd\ResponsiveGridExtension;
+use Bmd\ResponsiveGridExtension\Bmd\GithubWpUpdater;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/scoped/autoload.php';
 
 function create_responsive_grid_extension_plugin(): void
 {
@@ -32,5 +34,16 @@ function create_responsive_grid_extension_plugin(): void
 	);
 
 	$plugin->mount();
+
+	$updater = new GithubWpUpdater(
+		__FILE__,
+		[
+			'github.user' => 'bob-moore',
+			'github.repo' => 'Responsive-Grid-Extension',
+			'github.branch' => 'main',
+		]
+	);
+
+	$updater->mount();
 }
 create_responsive_grid_extension_plugin();

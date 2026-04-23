@@ -1,6 +1,6 @@
 {
 	"name": "responsive-grid-extension",
-	"version": "0.1.1",
+	"version": "0.1.4",
 	"description": "Extension to the core/grid wordpress block to use responsive grid attributes.",
 	"author": "Bob Moore",
 	"license": "GPL-2.0-or-later",
