@@ -35,14 +35,14 @@ const plugins = scriptConfig.plugins.filter( ( item ) => {
 const assetConfig = {
 	...scriptConfig,
 	entry: {
-		index : path.resolve( __dirname, 'src', 'index.ts' ),
-		frontend : path.resolve( __dirname, 'src', 'index.scss' )
+		index: path.resolve( __dirname, 'src', 'index.ts' ),
+		frontend: path.resolve( __dirname, 'src', 'index.scss' ),
 	},
 	plugins: [
 		...plugins,
 		new RemoveEmptyScriptsPlugin(),
 		new MiniCssExtractPlugin( { filename: '[name].css' } ),
-	]
+	],
 };
 
 module.exports = () => {

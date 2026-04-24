@@ -13,10 +13,13 @@ import React, { FC } from 'react';
 /**
  * Internal Dependencies
  */
-import type { BlockEditProps } from './types';
-import type { BlockAttributes } from './types';
+import type { BlockAttributes, BlockEditProps } from './types';
 import { DeviceSwitcher } from './components/DeviceSwitcher';
-import { useColumnPlaceholder, useRowPlaceholder, useDevicePreview } from './hooks';
+import {
+	useColumnPlaceholder,
+	useRowPlaceholder,
+	useDevicePreview,
+} from './hooks';
 
 type GroupBlockEditProps = BlockEditProps< BlockAttributes >;
 type GroupBlockEditComponent = FC< GroupBlockEditProps >;
@@ -38,7 +41,8 @@ export const Edit = createHigherOrderComponent<
 			return <BlockEdit { ...props } />;
 		}
 
-		const { layout, responsiveGridColumns, responsiveGridRows } = attributes;
+		const { layout, responsiveGridColumns, responsiveGridRows } =
+			attributes;
 
 		const { columnCount = null, type } = layout;
 

@@ -11,8 +11,4 @@ addFilter(
 
 addFilter( 'editor.BlockEdit', 'bmd/with-grid-columns', Edit );
 
-addFilter(
-	'editor.BlockListBlock',
-	'bmd/grid-columns-block-list',
-	BlockList
-);
+addFilter( 'editor.BlockListBlock', 'bmd/grid-columns-block-list', BlockList );

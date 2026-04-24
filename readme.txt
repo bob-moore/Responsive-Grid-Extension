@@ -14,9 +14,8 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 ![WordPress](https://img.shields.io/badge/WordPress-6.7%2B-3858e9?logo=wordpress&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
 ![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
+![Lint and Build](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-build.yml/badge.svg)
 [![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
-
-<!-- @todo Set up GitHub Actions for build/lint checks and add the corresponding status badges. -->
 
 Add responsive grid column and row controls to the core Group block.
 

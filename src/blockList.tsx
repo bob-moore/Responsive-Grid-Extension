@@ -29,12 +29,10 @@ export const BlockList = createHigherOrderComponent( ( BlockListBlock ) => {
 		 * Check if any custom columns or rows are set
 		 */
 		const hasCustomColumns = ! Object.values( responsiveGridColumns ).every(
-			( v ) =>
-			isEmpty( v )
+			( v ) => isEmpty( v )
 		);
 		const hasCustomRows = ! Object.values( responsiveGridRows ).every(
-			( v ) =>
-			isEmpty( v )
+			( v ) => isEmpty( v )
 		);
 		/**
 		 * Bail out if no custom columns or rows are set
@@ -51,13 +49,15 @@ export const BlockList = createHigherOrderComponent( ( BlockListBlock ) => {
 			classNames.add( 'has-responsive-grid-columns' );
 			Object.entries( responsiveGridColumns ).forEach(
 				( [ device, value ] ) => {
-				if ( ! isEmpty( value ) ) {
-					classNames.add( `has-responsive-grid-columns--${ device }` );
-					styles.set(
-						`--responsive-grid-template-columns--${ device }`,
-						value
-					);
-				}
+					if ( ! isEmpty( value ) ) {
+						classNames.add(
+							`has-responsive-grid-columns--${ device }`
+						);
+						styles.set(
+							`--responsive-grid-template-columns--${ device }`,
+							value
+						);
+					}
 				}
 			);
 		}
@@ -67,13 +67,15 @@ export const BlockList = createHigherOrderComponent( ( BlockListBlock ) => {
 
 			Object.entries( responsiveGridRows ).forEach(
 				( [ device, value ] ) => {
-				if ( ! isEmpty( value ) ) {
-					classNames.add( `has-responsive-grid-rows--${ device }` );
-					styles.set(
-						`--responsive-grid-template-rows--${ device }`,
-						value
-					);
-				}
+					if ( ! isEmpty( value ) ) {
+						classNames.add(
+							`has-responsive-grid-rows--${ device }`
+						);
+						styles.set(
+							`--responsive-grid-template-rows--${ device }`,
+							value
+						);
+					}
 				}
 			);
 		}
