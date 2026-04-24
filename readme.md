@@ -1,24 +1,34 @@
 # Responsive Grid Extension
 
-Responsive Grid Extension adds responsive grid column and row controls to the core Group block for the block editor.
+Control your grid layout per breakpoint—without ditching the core Group block.
 
-## Overview
+## What this does
 
-This package is built for WordPress projects that need per-breakpoint grid template control without replacing the native Group block workflow. It adds editor controls for responsive grid columns and rows, then applies matching classes and CSS custom properties on render.
+The core Group block supports grid layouts, but it’s pretty limited once you need different layouts across devices.
+
+Responsive Grid Extension fills that gap. It adds simple controls for columns and rows at desktop, tablet, and mobile—then outputs the correct classes and CSS variables on the frontend.
+
+No custom blocks. No weird workflows. Just more control where you already expect it.
 
 ## Features
 
-- Extends the core Group block instead of introducing a custom block.
-- Adds responsive grid column controls for desktop, tablet, and mobile.
-- Adds responsive grid row controls for desktop, tablet, and mobile.
-- Loads editor and frontend assets from the package build directory.
-- Works as a standard plugin or as a Composer-installed package included by another plugin or theme.
+- Extends the core Group block (no replacement block)
+- Set grid columns per device (desktop, tablet, mobile)
+- Set grid rows per device (desktop, tablet, mobile)
+- Uses classes + CSS variables for clean output
+- Works as a standalone plugin or Composer dependency
+
+## Playground
+
+Try the plugin in WordPress Playground:
+
+[Launch Responsive Grid Extension](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
 
 ## Requirements
 
-- WordPress 6.7 or later
-- PHP 8.2 or later
-- Node.js 18.12 or later for local development
+- WordPress 6.7+
+- PHP 8.2+
+- Node 18.12+ (for development only)
 
 ## Installation
 
@@ -71,22 +81,6 @@ Example values:
 ## Development
 
 Install dependencies:
-
-```bash
-npm install
-```
-
-Start development build:
-
-```bash
-npm run start
-```
-
-Create production assets:
-
-```bash
-npm run build
-```
 
 ## Changelog
 
