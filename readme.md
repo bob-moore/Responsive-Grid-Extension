@@ -1,3 +1,5 @@
+![Responsive Grid Extension banner](assets/banner-1544x500.jpg)
+
 # Responsive Grid Extension
 
 Control your grid layout per breakpoint—without ditching the core Group block.

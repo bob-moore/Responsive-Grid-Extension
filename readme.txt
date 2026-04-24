@@ -1,3 +1,5 @@
+![Responsive Grid Extension banner](assets/banner-1544x500.jpg)
+
 === Responsive Grid Extension ===
 Contributors: Bob Moore
 Tags: grid, group block, layout, responsive, blocks
