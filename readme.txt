@@ -25,11 +25,7 @@ Features include:
 * Extension of the native Group block instead of a separate custom block.
 * Support for package-based usage in larger WordPress codebases.
 
-== Playground ==
-
-Try the plugin in WordPress Playground:
-
-https://playground.wordpress.net/?blueprint-url=https://cdn.jsdelivr.net/gh/bob-moore/Responsive-Grid-Extension@main/_playground/blueprint-github.json
+[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
 
 == Installation ==
 

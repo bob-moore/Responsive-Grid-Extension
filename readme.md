@@ -18,11 +18,7 @@ No custom blocks. No weird workflows. Just more control where you already expect
 - Uses classes + CSS variables for clean output
 - Works as a standalone plugin or Composer dependency
 
-## Playground
-
-Try the plugin in WordPress Playground:
-
-[Launch Responsive Grid Extension](https://playground.wordpress.net/?blueprint-url=https://cdn.jsdelivr.net/gh/bob-moore/Responsive-Grid-Extension@main/_playground/blueprint-github.json)
+[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
 
 ## Requirements
 
