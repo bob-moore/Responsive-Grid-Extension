@@ -22,14 +22,14 @@
 		},
 		{
 			"step": "installPlugin",
-			"pluginZipFile": {
+			"pluginData": {
 				"resource": "url",
 				"url": "https://github.com/bob-moore/Responsive-Grid-Extension/releases/latest/download/responsive-grid-extension.zip"
 			}
 		},
 		{
 			"step": "installTheme",
-			"themeZipFile": {
+			"themeData": {
 				"resource": "wordpress.org/themes",
 				"slug": "twentytwentyfive"
 			}

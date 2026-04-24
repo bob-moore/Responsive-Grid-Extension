@@ -22,7 +22,7 @@ No custom blocks. No weird workflows. Just more control where you already expect
 
 Try the plugin in WordPress Playground:
 
-[Launch Responsive Grid Extension](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
+[Launch Responsive Grid Extension](https://playground.wordpress.net/?blueprint-url=https://cdn.jsdelivr.net/gh/bob-moore/Responsive-Grid-Extension@main/_playground/blueprint-github.json)
 
 ## Requirements
 

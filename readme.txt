@@ -29,7 +29,7 @@ Features include:
 
 Try the plugin in WordPress Playground:
 
-https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json
+https://playground.wordpress.net/?blueprint-url=https://cdn.jsdelivr.net/gh/bob-moore/Responsive-Grid-Extension@main/_playground/blueprint-github.json
 
 == Installation ==
 
