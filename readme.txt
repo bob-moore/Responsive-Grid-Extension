@@ -10,6 +10,14 @@ Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
+![Version](https://img.shields.io/badge/version-0.1.4-blue)
+![WordPress](https://img.shields.io/badge/WordPress-6.7%2B-3858e9?logo=wordpress&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
+![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
+[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
+
+<!-- @todo Set up GitHub Actions for build/lint checks and add the corresponding status badges. -->
+
 Add responsive grid column and row controls to the core Group block.
 
 == Description ==
@@ -26,8 +34,6 @@ Features include:
 * Responsive grid row settings for desktop, tablet, and mobile.
 * Extension of the native Group block instead of a separate custom block.
 * Support for package-based usage in larger WordPress codebases.
-
-[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
 
 == Installation ==
 

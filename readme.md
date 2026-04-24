@@ -2,7 +2,15 @@
 
 # Responsive Grid Extension
 
+![Version](https://img.shields.io/badge/version-0.1.4-blue)
+![WordPress](https://img.shields.io/badge/WordPress-6.7%2B-3858e9?logo=wordpress&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
+![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
+[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
+
 Control your grid layout per breakpoint—without ditching the core Group block.
+
+<!-- @todo Set up GitHub Actions for build/lint checks and add the corresponding status badges. -->
 
 ## What this does
 
@@ -19,8 +27,6 @@ No custom blocks. No weird workflows. Just more control where you already expect
 - Set grid rows per device (desktop, tablet, mobile)
 - Uses classes + CSS variables for clean output
 - Works as a standalone plugin or Composer dependency
-
-[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
 
 ## Requirements
 
