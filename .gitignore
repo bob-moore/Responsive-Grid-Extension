@@ -30,6 +30,7 @@ Thumbs.db
 ._*
 *.orig
 *.map
+.phpunit.cache/
 .sass-cache
 # Editor generated files #
 ######################

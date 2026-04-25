@@ -2,7 +2,12 @@
     "name": "bmd/responsive-grid-extension",
     "description": "Extension for core/grid wordpress block to use responsive grid attributes.",
     "type": "library",
-    "author": "Bob Moore <bob@bobmoore.dev>",
+    "authors": [
+        {
+            "name": "Bob Moore",
+            "email": "bob@bobmoore.dev"
+        }
+    ],
     "homepage": "https://github.com/bob-moore/Responsive-Grid-Extension",
     "license": "GPL-2.0-or-later",
     "minimum-stability": "dev",
@@ -11,7 +16,7 @@
         "optimize-autoloader": true,
         "vendor-dir": "vendor",
         "platform": {
-            "php": "8.1"
+            "php": "8.2"
         },
         "allow-plugins": {
             "composer/installers": true,
@@ -24,7 +29,9 @@
             "Bmd\\": "./inc"
         }
     },
-    "require": {},
+    "require": {
+        "php": ">=8.2"
+    },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
         "symfony/var-dumper": "*",
@@ -33,9 +40,11 @@
         "szepeviktor/phpstan-wordpress": "^1.3",
         "phpcsstandards/phpcsutils": "^1.0",
         "wpify/scoper": "^3.2",
-        "10up/wp_mock": "*"
+        "10up/wp_mock": "*",
+        "phpunit/phpunit": "*"
     },
     "scripts": {
+        "test": "./vendor/bin/phpunit",
         "phpstan": "./vendor/bin/phpstan analyze -c ./phpstan.neon --memory-limit=2048M",
         "phpsniff": "./vendor/bin/phpcs ./inc -v --standard='./phpcs.xml'",
         "phpsniff:fix": "./vendor/bin/phpcbf ./inc -v --standard='./phpcs.xml'",
