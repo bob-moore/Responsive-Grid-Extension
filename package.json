@@ -10,13 +10,21 @@
 		"npm": ">=8.19.2"
 	},
 	"scripts": {
-		"build": "wp-scripts build --experimental-modules",
+		"build": "npm run fix:css && npm run fix:js && npm run compile",
+		"compile": "wp-scripts build --experimental-modules",
+		"watch": "wp-scripts start --experimental-modules",
+		"watch:hot": "wp-scripts start --hot",
+		"check-engines": "wp-scripts check-engines",
+		"check-licenses": "wp-scripts check-licenses --prod --gpl2",
 		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
+		"lint:css": "wp-scripts lint-style './src/**/*.scss'",
+		"fix:css": "wp-scripts lint-style './src/**/*.scss' --fix",
+		"lint:js": "wp-scripts lint-js './src/**/*.{js,jsx,ts,tsx}'",
+		"fix:js": "wp-scripts lint-js './src/**/*.{js,jsx,ts,tsx}' --fix",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start --experimental-modules"
+		"plugin-zip": "wp-scripts plugin-zip"
 	},
 	"devDependencies": {
 		"@wordpress/api-fetch": "^7.37.0",
