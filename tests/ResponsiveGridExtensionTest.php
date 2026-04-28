@@ -49,8 +49,8 @@ class ResponsiveGridExtensionTest extends TestCase
 		);
 
 		WP_Mock::expectActionAdded( 'enqueue_block_editor_assets', [ $plugin, 'enqueueEditorScript' ] );
-		WP_Mock::expectActionAdded( 'wp_enqueue_scripts', [ $plugin, 'enqueueFrontendStyle' ] );
 		WP_Mock::expectFilterAdded( 'render_block_core/group', [ $plugin, 'processGridBlock' ], 10, 2 );
+		WP_Mock::expectFilterAdded( 'pre_render_block', [ $plugin, 'maybeEnqueueFrontendStyle' ], 10, 2 );
 
 		$plugin->mount();
 
@@ -132,6 +132,7 @@ class ResponsiveGridExtensionTest extends TestCase
 			$plugin->processGridBlock(
 				$html,
 				[
+					'blockName' => 'core/group',
 					'attrs' => [
 						'layout' => [
 							'type' => 'constrained',
@@ -153,6 +154,7 @@ class ResponsiveGridExtensionTest extends TestCase
 		$updated = $plugin->processGridBlock(
 			$html,
 			[
+				'blockName' => 'core/group',
 				'attrs' => [
 					'layout'                => [
 						'type' => 'grid',

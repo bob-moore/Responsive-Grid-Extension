@@ -2,12 +2,12 @@
 
 # Responsive Grid Extension
 
-![Version](https://img.shields.io/badge/version-0.1.4-blue)
+![Version](https://img.shields.io/badge/version-0.1.5-blue)
 ![WordPress](https://img.shields.io/badge/WordPress-6.7%2B-3858e9?logo=wordpress&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
 ![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
 ![Lint and Build](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-build.yml/badge.svg)
-[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.4-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
+[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.5-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
 
 Control your grid layout per breakpoint—without ditching the core Group block.
 
@@ -86,6 +86,11 @@ Example values:
 Install dependencies:
 
 ## Changelog
+
+### 0.1.5
+
+- Optimized frontend asset loading so responsive grid styles enqueue only when a rendered Grid Group block is present.
+- Reused a shared Grid Group block check for render processing and conditional frontend style loading.
 
 ### 0.1.4
 

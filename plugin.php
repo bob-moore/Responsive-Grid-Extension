@@ -5,7 +5,7 @@
  * Author:            Bob Moore
  * Author URI:        https://www.bobmoore.dev
  * Description:       Add responsive and custom grid template columns
- * Version:           0.1.4
+ * Version:           0.1.5
  * Requires at least: 6.7
  * Tested up to:      6.7
  * Requires PHP:      8.2
