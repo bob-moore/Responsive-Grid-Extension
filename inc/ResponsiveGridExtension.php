@@ -33,29 +33,29 @@ namespace Bmd;
 class ResponsiveGridExtension implements BasicPlugin
 {
 	/**
-	* URL of this plugin/package.
-	*
-	* Used to enqueue block editor assets.
-	*
-	* @var string
-	*/
+	 * URL of this plugin/package.
+	 *
+	 * Used to enqueue block editor assets.
+	 *
+	 * @var string
+	 */
 	protected string $url;
 	/**
-	* Path of the plugin/package.
-	*
-	* Used to locate block editor assets.
-	*
-	* @var string
-	*/
+	 * Path of the plugin/package.
+	 *
+	 * Used to locate block editor assets.
+	 *
+	 * @var string
+	 */
 	protected string $path;
 	/**
-	* Initialize the plugin.
-	*
-	* Sets the URL and path for this package.
-	*
-	* @param string $url  URL to the plugin directory.
-	* @param string $path Absolute path to the plugin directory.
-	*/
+	 * Initialize the plugin.
+	 *
+	 * Sets the URL and path for this package.
+	 *
+	 * @param string $url  URL to the plugin directory.
+	 * @param string $path Absolute path to the plugin directory.
+	 */
 	public function __construct(
 		string $url = '',
 		string $path = ''
@@ -64,23 +64,23 @@ class ResponsiveGridExtension implements BasicPlugin
 		$this->setPath( ! empty( $path ) ? esc_html( $path ) : plugin_dir_path( __DIR__ ) );
 	}
 	/**
-	* Setter for the URL property.
-	*
-	* @param string $url string URL to set.
-	*
-	* @return void
-	*/
+	 * Setter for the URL property.
+	 *
+	 * @param string $url string URL to set.
+	 *
+	 * @return void
+	 */
 	public function setUrl( string $url ): void
 	{
 		$this->url = trailingslashit( $url );
 	}
 	/**
-	* Setter for the path property.
-	*
-	* @param string $path string path to set.
-	*
-	* @return void
-	*/
+	 * Setter for the path property.
+	 *
+	 * @param string $path string path to set.
+	 *
+	 * @return void
+	 */
 	public function setPath( string $path ): void
 	{
 		$this->path = trailingslashit( $path );
@@ -93,8 +93,11 @@ class ResponsiveGridExtension implements BasicPlugin
 	public function mount(): void
 	{
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueueEditorScript' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueueFrontendStyle' ] );
 		add_filter( 'render_block_core/group', [ $this, 'processGridBlock' ], 10, 2 );
+
+		if ( ! is_admin() ) {
+			add_filter( 'pre_render_block', [ $this, 'maybeEnqueueFrontendStyle' ], 10, 2 );
+		}
 	}
 	/**
 	 * Enqueue editor assets for the block extension.
@@ -135,7 +138,37 @@ class ResponsiveGridExtension implements BasicPlugin
 		$this->enqueueStyleFile( 'grid-extensions-editor', 'index.css' );
 		$this->enqueueStyleFile( 'grid-extensions-frontend-editor', 'frontend.css' );
 	}
+	/**
+	 * Enqueue frontend styles when the first grid group is about to render.
+	 *
+	 * @param string|null          $pre_render   Short-circuit render output.
+	 * @param array<string, mixed> $parsed_block Parsed block.
+	 *
+	 * @return string|null
+	 */
+	public function maybeEnqueueFrontendStyle( ?string $pre_render, array $parsed_block ): ?string
+	{
+		if ( ! $this->isGridGroupBlock( $parsed_block ) ) {
+			return $pre_render;
+		}
 
+		$this->enqueueFrontendStyle();
+
+		remove_filter( 'pre_render_block', [ $this, 'maybeEnqueueFrontendStyle' ], 10 );
+
+		return $pre_render;
+	}
+	/**
+	 * Check whether a parsed block is a core/group using Grid layout.
+	 *
+	 * @param array<string, mixed> $block Parsed block.
+	 *
+	 * @return bool
+	 */
+	protected function isGridGroupBlock( array $block ): bool
+	{
+		return 'core/group' === ( $block['blockName'] ?? '' ) && 'grid' === ( $block['attrs']['layout']['type'] ?? false );
+	}
 	/**
 	 * Enqueue frontend stylesheet for responsive grid rendering.
 	 *
@@ -189,7 +222,7 @@ class ResponsiveGridExtension implements BasicPlugin
 	protected function buildPath( string $relative_path ): string
 	{
 		$path = apply_filters( 'responsive_grid_extension_plugin_path', $this->path );
-		
+
 		if ( '' === $path ) {
 			return '';
 		}
@@ -207,7 +240,7 @@ class ResponsiveGridExtension implements BasicPlugin
 	protected function buildUrl( string $relative_path ): string
 	{
 		$url = apply_filters( 'responsive_grid_extension_plugin_url', $this->url );
-		
+
 		if ( '' === $url ) {
 			return '';
 		}
@@ -275,7 +308,7 @@ class ResponsiveGridExtension implements BasicPlugin
 	public function processGridBlock( string $block_content, array $block ): string
 	{
 		// Only process Group blocks using the Grid layout mode.
-		if ( 'grid' !== ( $block['attrs']['layout']['type'] ?? false ) ) {
+		if ( ! $this->isGridGroupBlock( $block ) ) {
 			return $block_content;
 		}
 
