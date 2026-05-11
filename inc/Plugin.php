@@ -1,6 +1,6 @@
 <?php
 /**
- * Main plugin functionality
+ * Main plugin service.
  *
  * PHP Version 8.2
  *
@@ -11,7 +11,7 @@
  * @since      1.0.0
  */
 
-namespace Bmd;
+namespace Bmd\ResponsiveGridExtension;
 
 /**
  * Coordinates runtime behavior for the Responsive Grid Extension package.
@@ -27,10 +27,10 @@ namespace Bmd;
  * - Subclasses can override processGridBlock() to change class/CSS variable naming conventions.
  *
  * Composer integration example:
- * - $plugin = new ResponsiveGridExtension( plugin_dir_url( __FILE__ ), plugin_dir_path( __FILE__ ) );
+ * - $plugin = new Plugin( plugin_dir_url( __FILE__ ), plugin_dir_path( __FILE__ ) );
  * - $plugin->mount();
  */
-class ResponsiveGridExtension implements BasicPlugin
+class Plugin
 {
 	/**
 	 * URL of this plugin/package.
@@ -60,8 +60,8 @@ class ResponsiveGridExtension implements BasicPlugin
 		string $url = '',
 		string $path = ''
 	) {
-		$this->setUrl( ! empty( $url ) ? esc_url_raw( $url ) : plugin_dir_url( __DIR__ ) );
-		$this->setPath( ! empty( $path ) ? esc_html( $path ) : plugin_dir_path( __DIR__ ) );
+		$this->setUrl( ! empty( $url ) ? $url : Utilities::getUrl() );
+		$this->setPath( ! empty( $path ) ? $path : Utilities::getPath() );
 	}
 	/**
 	 * Setter for the URL property.
@@ -72,7 +72,7 @@ class ResponsiveGridExtension implements BasicPlugin
 	 */
 	public function setUrl( string $url ): void
 	{
-		$this->url = trailingslashit( $url );
+		$this->url = trailingslashit( esc_url_raw( $url ) );
 	}
 	/**
 	 * Setter for the path property.
@@ -83,7 +83,7 @@ class ResponsiveGridExtension implements BasicPlugin
 	 */
 	public function setPath( string $path ): void
 	{
-		$this->path = trailingslashit( $path );
+		$this->path = trailingslashit( wp_normalize_path( $path ) );
 	}
 	/**
 	 * Register all WordPress hooks for the responsive grid extension.
@@ -128,15 +128,15 @@ class ResponsiveGridExtension implements BasicPlugin
 		}
 
 		wp_enqueue_script(
-			'grid-extensions-editor',
+			'responsive-grid-extension-editor',
 			$src,
 			$assets['dependencies'],
 			$version,
 			true
 		);
 
-		$this->enqueueStyleFile( 'grid-extensions-editor', 'index.css' );
-		$this->enqueueStyleFile( 'grid-extensions-frontend-editor', 'frontend.css' );
+		$this->enqueueStyleFile( 'responsive-grid-extension-editor', 'index.css' );
+		$this->enqueueStyleFile( 'responsive-grid-extension-frontend-editor', 'frontend.css' );
 	}
 	/**
 	 * Enqueue frontend styles when the first grid group is about to render.
@@ -176,7 +176,7 @@ class ResponsiveGridExtension implements BasicPlugin
 	 */
 	public function enqueueFrontendStyle(): void
 	{
-		$this->enqueueStyleFile( 'grid-extensions-frontend', 'frontend.css' );
+		$this->enqueueStyleFile( 'responsive-grid-extension-frontend', 'frontend.css' );
 	}
 
 	/**

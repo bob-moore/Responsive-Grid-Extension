@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Bmd\\": "./inc"
+            "Bmd\\ResponsiveGridExtension\\": "./inc"
         }
     },
     "require": {
@@ -51,19 +51,18 @@
         "phpsniff:default": "./vendor/bin/phpcs ./inc -v",
         "phpsniff:PSR12": "./vendor/bin/phpcs ./inc -v --standard='PSR12'",
         "phpsniff:PSR2": "./vendor/bin/phpcs ./inc -v --standard='PSR2'",
-        "phpsniff:WP": "./vendor/bin/phpcs ./inc -v --standard='WordPress'"
+        "phpsniff:WP": "./vendor/bin/phpcs ./inc -v --standard='WordPress'",
+        "wpify:install": "wpify-scoper install",
+        "wpify:update": "wpify-scoper update"
     },
     "extra": {
         "wpify-scoper": {
             "prefix": "Bmd\\ResponsiveGridExtension",
-            "slug": "bmd_responsive_grid_extension",
+            "slug": "responsive-grid-extension",
             "folder": "./vendor/scoped",
-            "globals": [
-                "wordpress"
-            ],
             "composerjson": "composer-deps.json",
             "composerlock": "composer-deps.lock",
-            "autorun": true
+            "autorun": false
         }
     }
 }

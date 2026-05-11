@@ -1,78 +1,76 @@
-![Responsive Grid Extension banner](assets/banner-1544x500.jpg)
-
 # Responsive Grid Extension
 
-![Version](https://img.shields.io/badge/version-0.1.5-blue)
-![WordPress](https://img.shields.io/badge/WordPress-6.7%2B-3858e9?logo=wordpress&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
-![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
-![Lint and Build](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-build.yml/badge.svg)
-[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.5-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
+![Responsive Grid Extension](assets/banner-1544x500.jpg)
 
-Control your grid layout per breakpoint—without ditching the core Group block.
+[![WordPress](https://img.shields.io/badge/WordPress-6.7%2B-3858e9?logo=wordpress&logoColor=fff)](https://wordpress.org/)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4?logo=php&logoColor=fff)](https://www.php.net/)
+[![Latest Release](https://img.shields.io/github/v/release/bob-moore/Responsive-Grid-Extension?label=release)](https://github.com/bob-moore/Responsive-Grid-Extension/releases/latest)
+[![License](https://img.shields.io/badge/license-GPL--2.0--or--later-blue)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-## What this does
+[![Lint CSS](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-css.yml/badge.svg)](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-css.yml)
+[![Lint JS](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-js.yml/badge.svg)](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-js.yml)
+[![Lint PHP](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-php.yml/badge.svg)](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-php.yml)
 
-The core Group block supports grid layouts, but it’s pretty limited once you need different layouts across devices.
+Want to give it a test drive? Try it in the WP Playground: [![Try it in the WordPress Playground](https://img.shields.io/badge/WP_Playground-v0.1.5-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
 
-Responsive Grid Extension fills that gap. It adds simple controls for columns and rows at desktop, tablet, and mobile—then outputs the correct classes and CSS variables on the frontend.
-
-No custom blocks. No weird workflows. Just more control where you already expect it.
+Add responsive column and row controls to the WordPress Group block (`core/group`) when it uses Grid layout.
 
 ## Features
 
-- Extends the core Group block (no replacement block)
-- Set grid columns per device (desktop, tablet, mobile)
-- Set grid rows per device (desktop, tablet, mobile)
-- Uses classes + CSS variables for clean output
-- Works as a standalone plugin or Composer dependency
+- Adds responsive grid controls to `core/group` in the block inspector.
+- Lets you set grid template columns for desktop, tablet, and mobile.
+- Lets you set grid template rows for desktop, tablet, and mobile.
+- Keeps the native Group block workflow instead of introducing a custom block.
+- Outputs responsive classes and CSS custom properties on the rendered block.
+- Loads frontend styles only when a rendered Grid Group block needs them.
+- Ships with GitHub-based plugin updates in the WordPress admin update UI.
 
 ## Requirements
 
 - WordPress 6.7+
 - PHP 8.2+
-- Node 18.12+ (for development only)
 
 ## Installation
 
-### As a WordPress plugin
+### Install as a plugin
 
-1. Download the latest installable ZIP from the [GitHub Releases page](https://github.com/bob-moore/Responsive-Grid-Extension/releases).
-2. In WordPress admin, go to **Plugins > Add New Plugin > Upload Plugin**.
-3. Upload the ZIP and activate **Responsive Grid Extension**.
+1. Download the latest release zip from GitHub releases.
+2. In WordPress admin, go to Plugins -> Add New Plugin -> Upload Plugin.
+3. Upload the zip and activate Responsive Grid Extension.
 
-### As a Composer dependency
+### Install via Composer (library usage)
 
-1. Require the package from your consuming plugin or theme:
+If you are embedding this into your own project:
 
 ```bash
 composer require bmd/responsive-grid-extension
 ```
 
-2. Instantiate the plugin class and register its hooks in your bootstrap code:
+Then bootstrap:
 
 ```php
-<?php
+use Bmd\ResponsiveGridExtension\Plugin;
 
-use Bmd\ResponsiveGridExtension;
+$dependency_url  = plugin_dir_url( __FILE__ ) . 'vendor/bmd/responsive-grid-extension/';
+$dependency_path = plugin_dir_path( __FILE__ ) . 'vendor/bmd/responsive-grid-extension/';
 
-$plugin = new ResponsiveGridExtension(
-    plugin_dir_url( __FILE__ ),
-    plugin_dir_path( __FILE__ )
+$plugin = new Plugin(
+    $dependency_url,
+    $dependency_path
 );
 
 $plugin->mount();
 ```
 
-3. Ensure Composer autoloading is active in the consuming plugin or theme.
-4. Keep the package in a WordPress-accessible location so built assets can be loaded.
+The `Plugin` constructor expects the URL and filesystem path to the Responsive Grid Extension dependency root, not the file where you call it. For example, pass `/path/to/vendor/bmd/responsive-grid-extension/` and the matching public URL for that directory.
 
 ## Usage
 
-1. Insert a core Group block.
-2. Set the Group block layout type to `grid`.
-3. Open the block inspector.
-4. Enter custom grid template values for columns and rows per device.
+1. Add a Group block.
+2. Set the Group block layout type to Grid.
+3. Open the block sidebar.
+4. Set custom grid template columns or rows for each device size.
+5. Save and view the post.
 
 Example values:
 
@@ -81,47 +79,43 @@ Example values:
 - Rows: `auto auto`
 - Rows: `minmax(120px, auto) 1fr`
 
-## Development
+## Updates
 
-Install dependencies:
+This plugin is distributed through GitHub releases (not WordPress.org). The plugin includes a scoped GitHub updater so WordPress can detect and apply new versions from this repository.
 
 ## Changelog
 
 ### 0.1.5
 
+- Refined the PHP plugin architecture around a dedicated bootstrapper, plugin service, and utility helper.
+- Updated Composer autoloading for the new `Bmd\ResponsiveGridExtension` namespace structure.
+- Renamed the standalone plugin entrypoint to `responsive-grid-extension.php`.
+- Added separate GitHub Actions lint workflows for CSS, JS, and PHP.
 - Optimized frontend asset loading so responsive grid styles enqueue only when a rendered Grid Group block is present.
-- Reused a shared Grid Group block check for render processing and conditional frontend style loading.
+- Rebuilt scoped updater dependencies.
 
 ### 0.1.4
 
-- Added scoped GitHub updater bootstrap in `plugin.php` using `bmd/github-wp-updater` from `vendor/scoped`.
+- Added scoped GitHub updater bootstrap using `bmd/github-wp-updater` from `vendor/scoped`.
 - Added Copilot instruction baselines under `.github/` for scoped updater install and production release packaging workflows.
 
 ### 0.1.3
 
-- Introduced `BasicPlugin` interface (`Bmd\BasicPlugin`) defining the `mount()`, `setUrl()`, and `setPath()` contract.
-- `ResponsiveGridExtension` now implements `BasicPlugin`.
-- Constructor accepts optional `$url` and `$path` parameters for flexible asset resolution when used as a Composer dependency.
-- `buildPath()` and `buildUrl()` now use injected URL and path properties instead of deriving them from filesystem constants.
-- Plugin bootstrap is now wrapped in a named function (`create_responsive_grid_extension_plugin()`).
+- Introduced a basic plugin interface defining the `mount()`, `setUrl()`, and `setPath()` contract.
+- Constructor accepts optional URL and path parameters for flexible asset resolution when used as a Composer dependency.
+- Plugin bootstrap is wrapped in a named function.
 
 ### 0.1.2
 
-- Added `mount()` method to `ResponsiveGridExtension` that registers all WordPress hooks in one call.
-- Simplified plugin bootstrap: replaced individual `add_action`/`add_filter` calls with `$plugin->mount()`.
-- When using the library via Composer, call `$plugin->mount()` after instantiation instead of wiring hooks manually.
+- Added `mount()` method to register all WordPress hooks in one call.
+- Simplified plugin bootstrap.
 
 ### 0.1.1
 
-- Moved main class into `inc/` directory for Composer PSR-4 autoloading under `Bmd\`.
-- Public class is now `Bmd\ResponsiveGridExtension` (previously `Bmd\ResponsiveGridExtension\Plugin`).
+- Moved the main class into `inc/` for Composer PSR-4 autoloading.
 - Fixed asset path resolution after directory restructure.
 
 ### 0.1.0
 
 - Initial release.
 - Added responsive Group block grid extensions for columns and rows.
-
-## License
-
-GPL-2.0-or-later. See [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html).

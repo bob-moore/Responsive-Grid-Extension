@@ -7,12 +7,12 @@
 
 namespace Bmd\Tests;
 
-use Bmd\ResponsiveGridExtension;
+use Bmd\ResponsiveGridExtension\Plugin;
 use PHPUnit\Framework\TestCase;
 use WP_Mock;
 
 /**
- * @covers \Bmd\ResponsiveGridExtension
+ * @covers \Bmd\ResponsiveGridExtension\Plugin
  */
 class ResponsiveGridExtensionTest extends TestCase
 {
@@ -43,7 +43,7 @@ class ResponsiveGridExtensionTest extends TestCase
 	 */
 	public function mount_registers_expected_wordpress_hooks(): void
 	{
-		$plugin = new ResponsiveGridExtension(
+		$plugin = new Plugin(
 			'https://example.test/wp-content/plugins/responsive-grid-extension/',
 			'/var/www/html/wp-content/plugins/responsive-grid-extension/'
 		);
@@ -65,7 +65,7 @@ class ResponsiveGridExtensionTest extends TestCase
 		$plugin = new class(
 			'https://example.test/plugin/',
 			'/var/www/plugin/'
-		) extends ResponsiveGridExtension {
+		) extends Plugin {
 			public function publicBuildPath( string $relative_path ): string
 			{
 				return $this->buildPath( $relative_path );
@@ -100,7 +100,7 @@ class ResponsiveGridExtensionTest extends TestCase
 			"<?php\nreturn [ 'dependencies' => [ 'wp-element' ], 'version' => 'abc123' ];\n"
 		);
 
-		$plugin = new class( 'https://example.test/plugin/', $temporary_root ) extends ResponsiveGridExtension {
+		$plugin = new class( 'https://example.test/plugin/', $temporary_root ) extends Plugin {
 			/**
 			 * @return array{dependencies: array<int, string>, version: string|null}
 			 */
@@ -124,7 +124,7 @@ class ResponsiveGridExtensionTest extends TestCase
 	 */
 	public function process_grid_block_returns_original_markup_for_non_grid_groups(): void
 	{
-		$plugin = new ResponsiveGridExtension( 'https://example.test/plugin/', '/var/www/plugin/' );
+		$plugin = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
 		$html   = '<div class="wp-block-group">Content</div>';
 
 		$this->assertSame(
@@ -148,7 +148,7 @@ class ResponsiveGridExtensionTest extends TestCase
 	 */
 	public function process_grid_block_adds_responsive_classes_and_css_variables(): void
 	{
-		$plugin = new ResponsiveGridExtension( 'https://example.test/plugin/', '/var/www/plugin/' );
+		$plugin = new Plugin( 'https://example.test/plugin/', '/var/www/plugin/' );
 		$html   = '<div class="wp-block-group alignwide" style="padding: 1rem">Content</div>';
 
 		$updated = $plugin->processGridBlock(

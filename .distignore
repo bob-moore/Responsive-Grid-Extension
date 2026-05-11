@@ -1,0 +1,30 @@
+# Dev tooling
+.codex
+.cursor
+.github
+.distignore
+node_modules
+src
+tests
+vendor/scoped/**/tests
+vendor/scoped/**/*.code-workspace
+
+# Build/config files not needed in the release
+composer.json
+composer.lock
+composer-deps.json
+composer-deps.lock
+package.json
+package-lock.json
+phpcs.xml
+phpstan.neon
+phpunit.xml
+stylelint.config.js
+tsconfig.json
+declerations.d.ts
+webpack.config.js
+project.code-workspace
+readme.md
+
+# Source maps
+build/*.map

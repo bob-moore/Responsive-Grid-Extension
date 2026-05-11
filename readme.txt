@@ -1,94 +1,112 @@
-![Responsive Grid Extension banner](assets/banner-1544x500.jpg)
-
 === Responsive Grid Extension ===
 Contributors: Bob Moore
 Tags: grid, group block, layout, responsive, blocks
 Requires at least: 6.7
 Tested up to: 7.0
-Stable tag: 0.1.5
+Stable tag: 0.1.6
 Requires PHP: 8.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-![Version](https://img.shields.io/badge/version-0.1.5-blue)
-![WordPress](https://img.shields.io/badge/WordPress-6.7%2B-3858e9?logo=wordpress&logoColor=white)
-![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
-![License](https://img.shields.io/badge/license-GPL--2.0--or--later-green)
-![Lint and Build](https://github.com/bob-moore/Responsive-Grid-Extension/actions/workflows/lint-build.yml/badge.svg)
-[![Try it in the WordPress Playground](https://img.shields.io/badge/Try_in_Playground-v0.1.5-blue?logo=wordpress&logoColor=%23fff&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/bob-moore/Responsive-Grid-Extension/main/_playground/blueprint-github.json)
-
-Add responsive grid column and row controls to the core Group block.
+Add responsive column and row controls to the core/group block when it uses Grid layout.
 
 == Description ==
 
-Responsive Grid Extension adds responsive grid settings to the core Group block in the block editor.
+Responsive Grid Extension extends the core/group block with responsive Grid layout controls in the block sidebar.
 
-Use it to define custom grid template columns and rows for desktop, tablet, and mobile without replacing the native Group block workflow.
+What it does:
 
-The plugin adds editor controls and outputs matching classes and CSS custom properties on render so the frontend reflects the configured layout.
+* Adds responsive grid controls to core/group in the block editor.
+* Lets you set grid template columns for desktop, tablet, and mobile.
+* Lets you set grid template rows for desktop, tablet, and mobile.
+* Keeps the native Group block workflow instead of introducing a custom block.
+* Outputs responsive classes and CSS custom properties on the frontend.
+* Loads frontend styles only when a rendered Grid Group block needs them.
 
-Features include:
-
-* Responsive grid column settings for desktop, tablet, and mobile.
-* Responsive grid row settings for desktop, tablet, and mobile.
-* Extension of the native Group block instead of a separate custom block.
-* Support for package-based usage in larger WordPress codebases.
+This plugin is distributed through GitHub releases and includes a scoped updater so WordPress can surface updates from this repository.
 
 == Installation ==
 
-1. Download the latest installable ZIP from the GitHub Releases page: https://github.com/bob-moore/Responsive-Grid-Extension/releases
+= Install as a WordPress plugin =
+
+1. Download the latest release zip from GitHub.
 2. In WordPress admin, go to Plugins > Add New Plugin > Upload Plugin.
-3. Upload the ZIP and activate the plugin through the Plugins screen in WordPress.
-4. Add a Group block, set its layout to `grid`, and configure responsive columns and rows in the sidebar.
+3. Upload the zip and activate Responsive Grid Extension.
+
+= Install via Composer (library usage) =
+
+1. Require the package:
+
+`composer require bmd/responsive-grid-extension`
+
+2. Ensure Composer autoloading is loaded:
+
+`require_once __DIR__ . '/vendor/autoload.php';`
+
+3. Instantiate and mount the service:
+
+`use Bmd\ResponsiveGridExtension\Plugin;`
+`$plugin = new Plugin( $dependency_url, $dependency_path );`
+`$plugin->mount();`
+
+The constructor expects the URL and filesystem path to the Responsive Grid Extension dependency root, not the file where you call it.
 
 == Frequently Asked Questions ==
 
+= Is this plugin in the WordPress Plugin Directory? =
+
+No. It is distributed via GitHub releases.
+
+= Does this plugin support updates in wp-admin? =
+
+Yes. It includes a GitHub updater integration so WordPress can detect updates from this repo.
+
 = Does this create a new block? =
 
-No. It extends the core Group block.
+No. It extends the core WordPress Group block (`core/group`).
 
 = When do the controls appear? =
 
-The responsive controls are intended for Group blocks using the `grid` layout type.
-
-= Can this package be included via Composer? =
-
-Yes.
-
-1. Require `bmd/responsive-grid-extension` in your plugin or theme.
-2. Instantiate `Bmd\ResponsiveGridExtension`, passing your plugin's URL and path.
-3. Call `$plugin->mount()` to register all hooks.
-
-Make sure Composer autoloading is active and the package is installed in a web-accessible WordPress path.
+The responsive controls are intended for Group blocks using the Grid layout type.
 
 == Changelog ==
 
+= 0.1.6 =
+
+* Refactored PHP architecture into dedicated Plugin, ServiceLoader, and Utilities classes.
+* Renamed plugin entrypoint to responsive-grid-extension.php.
+* Split GitHub Actions lint workflow into separate CSS, JS, and PHP workflows.
+* Updated Composer namespace and autoloading to Bmd\ResponsiveGridExtension.
+* Updated PHPUnit tests to cover new Plugin class.
+
 = 0.1.5 =
 
+* Refined the PHP plugin architecture around a dedicated bootstrapper, plugin service, and utility helper.
+* Updated Composer autoloading for the new `Bmd\ResponsiveGridExtension` namespace structure.
+* Renamed the standalone plugin entrypoint to `responsive-grid-extension.php`.
+* Added separate GitHub Actions lint workflows for CSS, JS, and PHP.
 * Optimized frontend asset loading so responsive grid styles enqueue only when a rendered Grid Group block is present.
-* Reused a shared Grid Group block check for render processing and conditional frontend style loading.
+* Rebuilt scoped updater dependencies.
 
 = 0.1.4 =
 
-* Added scoped GitHub updater bootstrap in `plugin.php` using `bmd/github-wp-updater` from `vendor/scoped`.
-* Added release and instruction baselines under `.github/` for scoped updater and production packaging workflows.
+* Added scoped GitHub updater bootstrap using bmd/github-wp-updater from vendor/scoped.
+* Added release and instruction baselines under .github for scoped updater and production packaging workflows.
 
 = 0.1.3 =
 
-* Introduced `BasicPlugin` interface defining the `mount()`, `setUrl()`, and `setPath()` contract.
-* `ResponsiveGridExtension` now implements `BasicPlugin`.
-* Constructor accepts optional `$url` and `$path` parameters for flexible asset resolution when used as a Composer dependency.
-* Plugin bootstrap is now wrapped in a named function.
+* Introduced a basic plugin interface defining the mount, setUrl, and setPath contract.
+* Constructor accepts optional URL and path parameters for flexible asset resolution when used as a Composer dependency.
+* Plugin bootstrap is wrapped in a named function.
 
 = 0.1.2 =
 
-* Added `mount()` method to `ResponsiveGridExtension` that registers all WordPress hooks in one call.
+* Added mount method to register all WordPress hooks in one call.
 * Simplified plugin bootstrap.
 
 = 0.1.1 =
 
-* Moved main class into `inc/` directory for Composer PSR-4 autoloading under `Bmd\`.
-* Public class is now `Bmd\ResponsiveGridExtension` (previously `Bmd\ResponsiveGridExtension\Plugin`).
+* Moved the main class into inc for Composer PSR-4 autoloading.
 * Fixed asset path resolution after directory restructure.
 
 = 0.1.0 =
@@ -100,16 +118,4 @@ Make sure Composer autoloading is active and the package is installed in a web-a
 
 = 0.1.5 =
 
-Frontend styles now load only on pages that render a Grid Group block.
-
-= 0.1.4 =
-
-GitHub updater bootstrap was added. Ensure `vendor/scoped` is present in production installs so updater classes autoload correctly.
-
-= 0.1.3 =
-
-Constructor now accepts `$url` and `$path` parameters. Composer integrations should pass `plugin_dir_url( __FILE__ )` and `plugin_dir_path( __FILE__ )` on instantiation.
-
-= 0.1.1 =
-
-Namespace updated to `Bmd\ResponsiveGridExtension`. Update any Composer integrations that previously referenced `Bmd\ResponsiveGridExtension\Plugin`.
+Updates plugin internals, Composer namespacing, the standalone plugin entrypoint, GitHub Actions lint workflows, scoped updater dependencies, and conditional frontend style loading.
